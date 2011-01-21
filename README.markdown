@@ -13,7 +13,7 @@ Although I haven't worked on the code since 2008, please let me know if anyone i
 How to use
 ----------
 
-Check out the PD patch `wfs~.pd` inside `src/` to see an example of how to use the external.
+Check out the PD patch `wfs~.pd` inside `src/bin/` to see an example of how to use the external.
 
 GPL v3 License
 --------------
