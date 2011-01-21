@@ -1,0 +1,176 @@
+#N canvas 342 134 1390 734 12;
+#X obj 209 134 osc~ 440;
+#X floatatom 209 94 5 0 0 0 - - -;
+#X floatatom 326 46 5 0 0 1 x - -;
+#X floatatom 420 45 5 0 0 1 y - -;
+#X floatatom 514 43 5 0 0 1 z - -;
+#X obj 514 153 pack f 20;
+#X obj 420 153 pack f 20;
+#X floatatom 608 43 5 0 0 1 theta - -;
+#X floatatom 702 44 5 0 0 1 back - -;
+#X obj 702 153 pack f 20;
+#X obj 608 153 pack f 20;
+#X msg 6 -263 \; pd dsp 1;
+#X msg 6 -223 \; pd dsp 0;
+#X obj 14 425 soundfiler;
+#X obj 123 276 tabwrite~ array1;
+#X obj 171 -82 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 5 -171 table array1 88200;
+#X obj 171 -63 del 500;
+#X msg 171 0 -25 0;
+#X obj 171 26 line 0 1;
+#X obj 171 -26 t b b;
+#X msg 222 0 25 1000;
+#X msg 270 109 0;
+#X obj 124 26 t b b;
+#X obj 124 84 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 102 425 write -wave /@home/Research/WFS/0.0.4_1sec_56m_220Hz
+array1;
+#X obj 420 175 vline~ 0 1;
+#X obj 514 175 vline~ 0 1;
+#X obj 608 175 vline~ 0 1;
+#X obj 702 175 vline~ 0 1;
+#X obj 326 153 pack f 20;
+#X obj 326 175 vline~ 0 1;
+#X obj 424 -127 metro 20;
+#X obj 424 -102 f;
+#X obj 516 -102 + 1;
+#X obj 454 -102 moses 3;
+#X msg 546 -102 0;
+#X obj 424 -78 sel 0 1 2 3;
+#X obj 424 -221 tgl 24 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X floatatom 814 -145 5 0 0 1 distance_from_origin(m) _dfo -;
+#X obj 580 -86 * -1;
+#X floatatom 488 -44 3 0 0 0 - - -;
+#X floatatom 424 -44 3 0 0 0 - - -;
+#X obj 155 134 noise~;
+#X obj 580 -64 - 0.5;
+#X obj 626 -64 + 0.5;
+#X msg 453 -44 0.5;
+#X obj 154 158 lop~ 500;
+#X obj 514 18 r _z;
+#X text 96 133 Source;
+#X obj 183 -248 loadbang;
+#X text 16 -46 automate movement;
+#X text 8 -26 and write to table;
+#X obj 678 -88 t b f;
+#X obj 678 -66 /;
+#X floatatom 814 -165 5 0 0 1 velocity(km/hr) _velocity -;
+#X obj 678 -42 * 3600;
+#X text 56 -64 mechanism to;
+#X text 753 -35 Calculate time in msec;
+#X text 482 -194 - set velocity (in km/hr) and distance from the origin
+(m);
+#X obj 721 -67 / 1.6;
+#X floatatom 815 -92 5 0 0 1 velocity(miles/hr) - -;
+#X text 7 -84 1) Quick and dirty;
+#X text 592 424 Write (1) to table.;
+#X msg 183 -224 \; _z 0.3 \; _velocity 65 \; _dfo 100;
+#X text 464 -229 2) Rotate sound around the origin (left to right \,
+then right to left). E.g. a car passing by in front of you.;
+#X text 841 240 Inlets: signal \, x \, y \, z \, theta \, back;
+#X text 898 287 x: x (width) location of the source;
+#X text 851 399 Outlets: connect to the number of loudspeakers specified
+in the object creation argument. (look at syntax). The outlet should
+be connected to the loudspeaker from left to right repectively.;
+#X floatatom 395 130 5 0 0 0 - - -;
+#X text 480 279;
+#X obj 304 347 dac~ 1 2 3 4 5 6 7 8;
+#X obj 305 237 wfs~ 3D -loc 0 0 0 -n 8 -dx 0.1 point card window;
+#X text 899 329 z: z (depth) location of the source;
+#X text 898 307 y: y (height) location of the source (point and 3D
+only);
+#X text 841 -3 Syntax: wfs~ 2D/3D -loc x (y) z -n # -dx # type direction
+window;
+#X text 891 128 type: type of sound source ("plane" or "point") defaults
+to "point". default "point";
+#X text 890 87 -n: number of loudspeakers in the array. default 8;
+#X text 889 32 2D/3D: array configuration ("2D" or "3D"). default 2D.
+;
+#X text 898 351 theta: direction of the source (point and card only)
+;
+#X text 899 373 back: directionality of the source (point and card
+only);
+#X text 898 266 signal: source;
+#X text 891 164 direction: directionality of source ("omni" or "card").
+default "omni".;
+#X text 891 199 window: apply amplitude window to the speakers or not
+("window" or "nowindow"). default "nowindow".;
+#X text 891 107 -dx: distance between each loudspeaker. default 0.1016.
+;
+#X text 890 52 -loc: center of the array (specify 3 arguments if 3D
+and point specified). default 0 0 0;
+#X connect 1 0 0 0;
+#X connect 2 0 30 0;
+#X connect 3 0 6 0;
+#X connect 4 0 5 0;
+#X connect 5 0 27 0;
+#X connect 6 0 26 0;
+#X connect 7 0 10 0;
+#X connect 8 0 9 0;
+#X connect 9 0 29 0;
+#X connect 10 0 28 0;
+#X connect 15 0 17 0;
+#X connect 15 0 23 0;
+#X connect 17 0 20 0;
+#X connect 18 0 19 0;
+#X connect 19 0 2 0;
+#X connect 20 0 21 0;
+#X connect 20 1 18 0;
+#X connect 21 0 19 0;
+#X connect 22 0 0 1;
+#X connect 23 0 24 0;
+#X connect 23 1 22 0;
+#X connect 24 0 14 0;
+#X connect 25 0 13 0;
+#X connect 26 0 72 2;
+#X connect 27 0 72 3;
+#X connect 30 0 31 0;
+#X connect 31 0 72 1;
+#X connect 32 0 33 0;
+#X connect 33 0 35 0;
+#X connect 33 0 37 0;
+#X connect 34 0 33 1;
+#X connect 35 0 34 0;
+#X connect 35 1 36 0;
+#X connect 36 0 33 1;
+#X connect 37 0 42 0;
+#X connect 37 1 46 0;
+#X connect 37 2 41 0;
+#X connect 37 3 46 0;
+#X connect 38 0 32 0;
+#X connect 39 0 40 0;
+#X connect 39 0 41 0;
+#X connect 39 0 45 0;
+#X connect 39 0 54 0;
+#X connect 40 0 44 0;
+#X connect 41 0 2 0;
+#X connect 42 0 2 0;
+#X connect 43 0 47 0;
+#X connect 44 0 42 0;
+#X connect 45 0 41 0;
+#X connect 46 0 2 0;
+#X connect 47 0 72 0;
+#X connect 48 0 4 0;
+#X connect 50 0 64 0;
+#X connect 53 0 54 0;
+#X connect 53 1 54 1;
+#X connect 53 1 60 0;
+#X connect 54 0 56 0;
+#X connect 55 0 53 0;
+#X connect 56 0 32 1;
+#X connect 56 0 69 0;
+#X connect 60 0 61 0;
+#X connect 69 0 30 1;
+#X connect 72 0 14 0;
+#X connect 72 0 71 0;
+#X connect 72 1 71 1;
+#X connect 72 2 71 2;
+#X connect 72 3 71 3;
+#X connect 72 4 71 4;
+#X connect 72 5 71 5;
+#X connect 72 6 71 6;
+#X connect 72 7 71 7;
